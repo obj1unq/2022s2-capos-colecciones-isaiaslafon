@@ -1,0 +1,21 @@
+import capos.*
+
+test "rolando no puede agarrar el collar al ya tener la espada y el libro" {
+	rolando.agarrar(espada)
+	assert.that(rolando.tiene(espada))
+	rolando.agarrar(libro)
+	assert.that(rolando.tiene(libro))
+	rolando.agarrar(collar)
+	assert.notThat(rolando.tiene(collar))
+}
+
+test "rolando agarra espada y hechizo y los deja al ir al castillo" {
+	rolando.agarrar(espada)
+	rolando.agarrar(libro)
+	rolando.irASuHogar()
+	rolando.agarrar(collar)
+	assert.that(rolando.tiene(collar))
+	rolando.irASuHogar()
+	assert.that(rolando.artefactos().isEmpty())
+	assert.equals(#{ espada, collar, libro }, castillo.baul())
+}
